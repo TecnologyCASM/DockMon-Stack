@@ -103,9 +103,9 @@ docker compose up -d && docker ps
 
 <img width="1247" height="918" alt="{1AB7F837-7E16-4BAB-8728-9834E1D28949}" src="https://github.com/user-attachments/assets/42ddfd00-d7d0-4505-84f0-08838001dd39" />
 
-![image](https://github.com/TecnologyCASM/PiholeDNS-WG/assets/107158068/267d2e41-1c64-46f0-940f-315f796ead7c)
-
 2) Despues de iniciar sesion, nos dirigimos al apartado `Adlist`:
+<img width="1251" height="914" alt="{F8DCD7F9-2264-4BB2-8B44-E70D4C21F2ED}" src="https://github.com/user-attachments/assets/28ee7d1b-68d7-46cc-99df-dba4f7f53de4" />
+
 ![image](https://github.com/TecnologyCASM/PiholeDNS-WG/assets/107158068/489423e0-2434-436d-a21a-4ffabee21137)
 en este apartado debemos agregar la siguiente url de IP que se encuentran en blacklist [PiholeB-locklist](https://github.com/Pyenb/Pi-hole-blocklist)
 
