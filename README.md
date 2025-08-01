@@ -101,6 +101,8 @@ docker compose up -d && docker ps
 # Contenedor PiHole:
 1) Despues de subir los contenedores, debemos entrar a la web de Pihole para poder visualiar e iniciar las configuraciones de lugar http://X.X.X.X:8080/admin/login.php y seguro https://X.X.X.X/admin/login.php
 
+<img width="1247" height="918" alt="{1AB7F837-7E16-4BAB-8728-9834E1D28949}" src="https://github.com/user-attachments/assets/42ddfd00-d7d0-4505-84f0-08838001dd39" />
+
 ![image](https://github.com/TecnologyCASM/PiholeDNS-WG/assets/107158068/267d2e41-1c64-46f0-940f-315f796ead7c)
 
 2) Despues de iniciar sesion, nos dirigimos al apartado `Adlist`:
