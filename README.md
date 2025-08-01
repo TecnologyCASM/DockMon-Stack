@@ -96,8 +96,6 @@ CHAT_ID="Mi ID"
 ```shell
 docker compose up -d && docker ps
 ```
-![image](https://github.com/TecnologyCASM/PortainerADM-Bot/assets/107158068/cd69904b-e0be-4c02-a7d4-f0729300170c)
-
 # Contenedor PiHole:
 1) Despues de subir los contenedores, debemos entrar a la web de Pihole para poder visualiar e iniciar las configuraciones de lugar http://X.X.X.X:8080/admin/login.php y seguro https://X.X.X.X/admin/login.php
 
