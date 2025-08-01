@@ -1,0 +1,76 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: PORTAINER-ADM
+    hostname: Portainer-ADM
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=America/Santo_Domingo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/netadmin/LabDocker01/docker-stack/portainer-data:/data
+    ports:
+      - "9000:9000/tcp"
+    restart: unless-stopped
+    network_mode: bridge
+
+  docker-controller-bot:
+    image: dgongut/docker-controller-bot:latest
+    container_name: DOCKER-BOT
+    environment:
+      - CONTAINER_NAME=DOCKER-BOT
+      - TELEGRAM_TOKEN=${BOT_TOKEN}
+      - TELEGRAM_ADMIN=${CHAT_ID}
+      - TZ=America/Santo_Domingo
+      - CHECK_UPDATE_EVERY_HOURS=720
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/netadmin/LabDocker01/docker-stack/config:/app/schedule
+    restart: always
+    network_mode: host
+    tty: true
+
+  pihole:
+    container_name: PIHOLEDNS
+    image: mwatz/pihole-unbound-updatelists:latest
+    hostname: Piholedns
+    domainname: piholedns.local
+    ports:
+      - "443:443/tcp"
+      - "5353:53/tcp"
+      - "5353:53/udp"
+      - "8080:80/tcp"
+    environment:
+      - TZ=America/Santo_Domingo
+      - WEBPASSWORD=${PIHOLE_PASSWORD}
+      - WEBTHEME=default-dark
+      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4:-10.7.1.10}
+      - DNSMASQ_LISTENING=single
+      - PIHOLE_DNS_=127.0.0.1#5335
+      - DNSSEC=true
+      - REV_SERVER=${REV_SERVER:-false}
+      - REV_SERVER_TARGET=${REV_SERVER_TARGET:-}
+      - REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN:-}
+      - REV_SERVER_CIDR=${REV_SERVER_CIDR:-}
+    volumes:
+      - etc_pihole-unbound:/etc/pihole:rw
+      - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
+    restart: unless-stopped
+    networks:
+      piholenet:
+        ipv4_address: 10.7.1.10
+
+volumes:
+  etc_pihole-unbound:
+  etc_pihole_dnsmasq-unbound:
+
+networks:
+  piholenet:
+    name: PiholeDNS-NET
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.7.1.0/24
+          gateway: 10.7.1.1
