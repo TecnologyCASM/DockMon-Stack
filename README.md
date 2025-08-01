@@ -82,8 +82,8 @@ docker run hello-world
 # Descarga y Ejecucion del proyecto HomePortainer:
 1) Ejecutar el siguiente comando para solo descargar el proyecto `PortainerADM-Bot` y acceder a la carpeta del proyecto:
 ```shell
-git clone https://github.com/TecnologyCASM/MonitorADM-Bot.git
-cd MonitorADM-Bot
+git clone https://github.com/TecnologyCASM/DockMon-Stack.git
+cd DockMon-Stack
 ls -la
 ```
 2) Debe de ir al archivo `.env` y modificar los siguientes parametros:
