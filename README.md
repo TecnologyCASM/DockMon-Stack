@@ -96,7 +96,13 @@ CHAT_ID="Mi ID"
 ```shell
 docker compose up -d && docker ps
 ```
-
 ![image](https://github.com/TecnologyCASM/PortainerADM-Bot/assets/107158068/cd69904b-e0be-4c02-a7d4-f0729300170c)
+
+# Contenedor PiHole:
+1) Despues de subir los contenedores, debemos entrar a la web de Pihole para poder visualiar e iniciar las configuraciones de lugar http://X.X.X.X:port/admin/login.php
+
+![image](https://github.com/TecnologyCASM/PiholeDNS-WG/assets/107158068/267d2e41-1c64-46f0-940f-315f796ead7c)
+
+2) Despues de iniciar sesion, nos dirigimos al apartado `Adlist`:
 
 MUCHAS GRACIAS POR UTILIZAR MI APORTE A LA COMUNIDAD...
