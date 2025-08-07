@@ -6,9 +6,6 @@
   
 Este proyecto esta diseñado con la finalidad de utilizarse en una red domestica, utilizando una Raspberry Pi B 8GB con dispositivo, donde contamos con la configuracion de dos servicios de administracion de contenedores de docker como Portainer y Docker Controller.
 
-![image](https://github.com/TecnologyCASM/PiHoleUnbound-WG/assets/107158068/dc9c6986-a497-49c6-a1f5-05eeb92cb2de)
-![image](https://github.com/TecnologyCASM/PiHoleUnbound-WG/assets/107158068/df035d60-2d1a-466c-8ccd-cb2c30bd6b7c)
-
 # Prerequisitos:
 * `Raspberry Pi 4 Modelo B 2GB`. https://amzn.to/3K7diXR
 * `64GB tarjeta MicroSD`. https://amzn.to/3ynPiNz
@@ -96,4 +93,7 @@ CHAT_ID="Mi ID"
 ```shell
 docker compose up -d && docker ps
 ```
+![image](https://github.com/TecnologyCASM/PiHoleUnbound-WG/assets/107158068/dc9c6986-a497-49c6-a1f5-05eeb92cb2de)
+![image](https://github.com/TecnologyCASM/PiHoleUnbound-WG/assets/107158068/df035d60-2d1a-466c-8ccd-cb2c30bd6b7c)
+
 MUCHAS GRACIAS POR UTILIZAR MI APORTE A LA COMUNIDAD...
