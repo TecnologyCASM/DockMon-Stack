@@ -42,7 +42,7 @@ pihole:
       piholeunbound-net:
     environment:
       TZ: 'America/Santo_Domingo'
-      FTLCONF_webserver_api_password: 'TuContraseñaSegura'
+      FTLCONF_webserver_api_password: 'P@ssword2025*'
       FTLCONF_dns_upstreams: 'unbound#5335'
     volumes:
       - '/opt/docker/piholev6/etc/pihole:/etc/pihole'
