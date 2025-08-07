@@ -31,3 +31,41 @@ services:
     restart: always
     network_mode: host
     tty: true
+
+pihole:
+    container_name: piholev6
+    image: pihole/pihole:latest
+    hostname: PIHOLEv6
+    networks:
+      piholev6-net:
+        ipv4_address: 192.168.1.254
+      piholeunbound-net:
+    environment:
+      TZ: 'America/Santo_Domingo'
+      FTLCONF_webserver_api_password: 'TuContraseñaSegura'
+      FTLCONF_dns_upstreams: 'unbound#5335'
+    volumes:
+      - '/opt/docker/piholev6/etc/pihole:/etc/pihole'
+      - '/opt/docker/piholev6/etc/dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    depends_on:
+      - unbound
+
+  unbound:
+    image: alpinelinux/unbound:latest
+    container_name: unbound
+    hostname: UNBOUND
+    networks:
+      piholeunbound-net:
+    volumes:
+      - '/opt/docker/piholev6/etc/unbound:/etc/unbound'
+    restart: unless-stopped
+
+networks:
+  piholev6-net:
+    name: local-network
+    external: true
+  piholeunbound-net:
+    name: piholeunbound-net
