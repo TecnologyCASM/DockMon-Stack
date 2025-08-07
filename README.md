@@ -96,14 +96,4 @@ CHAT_ID="Mi ID"
 ```shell
 docker compose up -d && docker ps
 ```
-# Contenedor PiHole:
-1) Despues de subir los contenedores, debemos entrar a la web de Pihole para poder visualiar e iniciar las configuraciones de lugar http://X.X.X.X:8080/admin/login.php y seguro https://X.X.X.X/admin/login.php
-
-<img width="1247" height="918" alt="{1AB7F837-7E16-4BAB-8728-9834E1D28949}" src="https://github.com/user-attachments/assets/42ddfd00-d7d0-4505-84f0-08838001dd39" />
-
-2) Despues de iniciar sesion, nos dirigimos al apartado `Adlist`:
-<img width="1251" height="914" alt="{F8DCD7F9-2264-4BB2-8B44-E70D4C21F2ED}" src="https://github.com/user-attachments/assets/28ee7d1b-68d7-46cc-99df-dba4f7f53de4" />
-
-en este apartado debemos agregar la siguiente url de IP que se encuentran en blacklist [PiholeB-locklist](https://github.com/Pyenb/Pi-hole-blocklist)
-
 MUCHAS GRACIAS POR UTILIZAR MI APORTE A LA COMUNIDAD...
