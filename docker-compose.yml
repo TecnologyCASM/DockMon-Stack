@@ -1,8 +1,8 @@
 services:
   portainer:
     image: portainer/portainer-ce:latest
-    container_name: PORTAINER-ADM
-    hostname: Portainer-ADM
+    container_name: portainer-adm
+    hostname: portainer-adm
     security_opt:
       - no-new-privileges:true
     environment:
@@ -12,15 +12,15 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/netadmin/LabDocker01/docker-stack/portainer-data:/data
     ports:
-      - "9000:9000/tcp"
+      - "9000:9000"
     restart: unless-stopped
     network_mode: bridge
 
   docker-controller-bot:
     image: dgongut/docker-controller-bot:latest
-    container_name: DOCKER-BOT
+    container_name: docker-bot
     environment:
-      - CONTAINER_NAME=DOCKER-BOT
+      - CONTAINER_NAME=docker-bot
       - TELEGRAM_TOKEN=${BOT_TOKEN}
       - TELEGRAM_ADMIN=${CHAT_ID}
       - TZ=America/Santo_Domingo
@@ -32,21 +32,25 @@ services:
     network_mode: host
     tty: true
 
-pihole:
-    container_name: piholev6
+  pihole:
     image: pihole/pihole:latest
-    hostname: PIHOLEv6
+    container_name: piholev6
+    hostname: piholev6
     networks:
       piholev6-net:
-        ipv4_address: 192.168.1.254
-      piholeunbound-net:
+        ipv4_address: 172.20.0.254
+      piholeunbound-net: {}
+    ports:
+      - "8080:80"       # Interfaz web de administración
+      - "53:53/tcp"     # DNS TCP para red local
+      - "53:53/udp"     # DNS UDP para red local
     environment:
-      TZ: 'America/Santo_Domingo'
-      FTLCONF_webserver_api_password: 'P@ssword2025*'
-      FTLCONF_dns_upstreams: 'unbound#5335'
+      - TZ=America/Santo_Domingo
+      - FTLCONF_WEBSERVER_API_PASSWORD=P@ssword2025*
+      - FTLCONF_DNS_UPSTREAMS=unbound#5335
     volumes:
-      - '/opt/docker/piholev6/etc/pihole:/etc/pihole'
-      - '/opt/docker/piholev6/etc/dnsmasq.d:/etc/dnsmasq.d'
+      - /opt/docker/piholev6/etc/pihole:/etc/pihole
+      - /opt/docker/piholev6/etc/dnsmasq.d:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -56,16 +60,20 @@ pihole:
   unbound:
     image: alpinelinux/unbound:latest
     container_name: unbound
-    hostname: UNBOUND
+    hostname: unbound
     networks:
-      piholeunbound-net:
+      piholeunbound-net: {}
     volumes:
-      - '/opt/docker/piholev6/etc/unbound:/etc/unbound'
+      - /opt/docker/piholev6/etc/unbound:/etc/unbound
     restart: unless-stopped
 
 networks:
   piholev6-net:
-    name: local-network
-    external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
+
   piholeunbound-net:
-    name: piholeunbound-net
+    driver: bridge
