@@ -6,28 +6,33 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      - TZ=America/Santo_Domingo
+      TZ: America/Santo_Domingo
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /home/netadmin/LabDocker01/docker-stack/portainer-data:/data
+      - ./portainer-data:/data
     ports:
       - "9000:9000"
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - docker-stack-net
 
   docker-controller-bot:
     image: dgongut/docker-controller-bot:latest
     container_name: docker-bot
     environment:
-      - CONTAINER_NAME=docker-bot
-      - TELEGRAM_TOKEN=${BOT_TOKEN}
-      - TELEGRAM_ADMIN=${CHAT_ID}
-      - TZ=America/Santo_Domingo
-      - CHECK_UPDATE_EVERY_HOURS=720
+      CONTAINER_NAME: docker-bot
+      TELEGRAM_TOKEN: ${BOT_TOKEN}
+      TELEGRAM_ADMIN: ${CHAT_ID}
+      TZ: America/Santo_Domingo
+      CHECK_UPDATE_EVERY_HOURS: 720
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/netadmin/LabDocker01/docker-stack/config:/app/schedule
+      - ./config:/app/schedule
     restart: always
     network_mode: host
     tty: true
+
+networks:
+  docker-stack-net:
+    driver: bridge
