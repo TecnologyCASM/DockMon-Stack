@@ -1,8 +1,8 @@
 services:
   portainer:
     image: portainer/portainer-ce:latest
-    container_name: portainer-adm
-    hostname: portainer-adm
+    container_name: portainer
+    hostname: portainer
     network_mode: bridge
     security_opt:
       - no-new-privileges:true
@@ -19,6 +19,7 @@ services:
   docker-controller-bot:
     image: dgongut/docker-controller-bot:latest
     container_name: docker-bot
+    hostname: docker-bot
     network_mode: host
     tty: true
     environment:
