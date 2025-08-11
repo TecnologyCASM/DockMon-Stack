@@ -1,4 +1,4 @@
-# DockMon-Stack
+# DockMon-VPN
 - `Portainer "MGMT Container"`
 - `Docker Controller Bot "MGMT Container Bot Telegram"`
 - `TailScale Docker "Servicio VPN Gratis""`
