@@ -1,7 +1,9 @@
+services:
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer-adm
     hostname: portainer-adm
+    network_mode: bridge
     security_opt:
       - no-new-privileges:true
     environment:
@@ -13,36 +15,39 @@
     ports:
       - "9000:9000"
     restart: unless-stopped
-    network_mode: bridge
 
   docker-controller-bot:
     image: dgongut/docker-controller-bot:latest
     container_name: docker-bot
+    network_mode: host
+    tty: true
     environment:
+      TZ: ${TZ}
       CONTAINER_NAME: docker-bot
       TELEGRAM_TOKEN: ${BOT_TOKEN}
       TELEGRAM_ADMIN: ${CHAT_ID}
-      TZ: ${TZ}
       CHECK_UPDATE_EVERY_HOURS: 720
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config:/app/schedule
     restart: always
-    network_mode: host
-    tty: true
 
   tailscale:
     image: tailscale/tailscale:latest
     container_name: tailscale
     hostname: tailscale
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+      - tailscale-state:/var/lib/tailscale
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
-    environment:
-      TAILSCALE_AUTHKEY: ${TAILSCALE_AUTHKEY}
-      TZ: ${TZ}
-    volumes:
-      - /dev/net/tun:/dev/net/tun
-      - ./tailscale:/var/lib/tailscale
-    network_mode: host
     restart: unless-stopped
+    network_mode: host
+
+volumes:
+  tailscale-state:
