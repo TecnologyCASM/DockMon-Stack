@@ -18,7 +18,7 @@ services:
 
   docker-controller-bot:
     image: dgongut/docker-controller-bot:latest
-    container_name: docker-bot
+    container_name: docker-controller-bot
     hostname: docker-bot
     network_mode: host
     tty: true
