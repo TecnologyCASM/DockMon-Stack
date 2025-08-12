@@ -1,34 +1,36 @@
 services:
+  # 🛠️ Portainer: Panel web para administrar contenedores Docker
   portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    hostname: portainer
-    network_mode: bridge
+    image: portainer/portainer-ce:latest         # Última versión de Portainer CE
+    container_name: portainer                    # Nombre del contenedor
+    hostname: portainer                          # Nombre de host interno
+    network_mode: bridge                         # Usa red bridge por defecto
     security_opt:
-      - no-new-privileges:true
+      - no-new-privileges:true                   # Previene escalamiento de privilegios
     environment:
-      TZ: ${TZ}
+      TZ: ${TZ}                                  # Zona horaria definida en .env
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./portainer-data:/data
+      - /etc/localtime:/etc/localtime:ro         # Sincroniza hora del host
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Permite a Portainer acceder al daemon Docker
+      - ./portainer-data:/data                   # Persistencia de datos de Portainer
     ports:
-      - "9000:9000"
-    restart: unless-stopped
+      - "9000:9000"                               # Acceso al panel web en http://localhost:9000
+    restart: unless-stopped                      # Reinicia salvo que se detenga manualmente
 
+  # 🤖 Controller-Bot: Bot de Telegram para monitoreo y control de contenedores
   docker-controller-bot:
-    image: dgongut/docker-controller-bot:latest
-    container_name: controller-bot
-    hostname: controller-bot
-    network_mode: host
-    tty: true
+    image: dgongut/docker-controller-bot:latest  # Imagen oficial del bot
+    container_name: controller-bot               # Nombre del contenedor
+    hostname: controller-bot                     # Nombre de host interno
+    network_mode: host                           # Accede directamente a la red del host
+    tty: true                                     # Habilita terminal interactiva
     environment:
-      TZ: ${TZ}
-      CONTAINER_NAME: docker-bot
-      TELEGRAM_TOKEN: ${BOT_TOKEN}
-      TELEGRAM_ADMIN: ${CHAT_ID}
-      CHECK_UPDATE_EVERY_HOURS: 720
+      TZ: ${TZ}                                   # Zona horaria
+      CONTAINER_NAME: docker-bot                  # Nombre lógico del bot
+      TELEGRAM_TOKEN: ${BOT_TOKEN}                # Token del bot (definido en .env)
+      TELEGRAM_ADMIN: ${CHAT_ID}                  # ID del administrador que recibe alertas
+      CHECK_UPDATE_EVERY_HOURS: 720               # Verifica actualizaciones cada 30 días
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./config:/app/schedule
-    restart: always
+      - /var/run/docker.sock:/var/run/docker.sock # Acceso al daemon Docker para monitoreo
+      - ./config:/app/schedule                    # Configuración de tareas programadas
+    restart: always                               # Reinicia automáticamente ante fallos
