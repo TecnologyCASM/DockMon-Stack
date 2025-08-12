@@ -1,7 +1,6 @@
 # DockMon-VPN
 - `Portainer "MGMT Container"`
 - `Docker Controller Bot "MGMT Container Bot Telegram"`
-- `TailScale Docker "Servicio VPN Gratis""`
   
 Este proyecto esta diseñado con la finalidad de utilizarse en una red domestica, utilizando una Raspberry Pi B 8GB con dispositivo, donde contamos con la configuracion de dos servicios de administracion de contenedores de docker como Portainer y Docker Controller.
 
