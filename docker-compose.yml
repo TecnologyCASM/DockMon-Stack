@@ -21,12 +21,11 @@ services:
   docker-controller-bot:
     image: dgongut/docker-controller-bot:latest  # Imagen oficial del bot
     container_name: controller-bot               # Nombre del contenedor
-    hostname: controller-bot                     # Nombre de host interno
     network_mode: host                           # Accede directamente a la red del host
     tty: true                                     # Habilita terminal interactiva
     environment:
       TZ: ${TZ}                                   # Zona horaria
-      CONTAINER_NAME: docker-bot                  # Nombre lógico del bot
+      CONTAINER_NAME: controller-bot              # Nombre lógico del bot
       TELEGRAM_TOKEN: ${BOT_TOKEN}                # Token del bot (definido en .env)
       TELEGRAM_ADMIN: ${CHAT_ID}                  # ID del administrador que recibe alertas
       CHECK_UPDATE_EVERY_HOURS: 720               # Verifica actualizaciones cada 30 días
